@@ -37,7 +37,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_SALMON_OCEAN_0AFDA0F03 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Utilisé pour les intégrations GitHub (ex: commentaires PR)
           action: "upload"
-          app_location: "./todo-app/src/frontend" # Chemin du code source de l'application
+          app_location: "todo-app/src/frontend" # Chemin du code source de l'application
           api_location: "" # Chemin du backend API - optionnel
           output_location: "." # Dossier contenant l'application construite - optionnel
 
