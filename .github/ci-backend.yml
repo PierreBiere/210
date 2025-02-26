@@ -1,0 +1,33 @@
+name: Build and save my Docker image to a registry
+ 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'todo-app/todo-app/src/backend/**'
+ 
+env:
+  REG_NAME: "exo.container-registry.com"
+  IMAGE_NAME: "backend-app-tinguely"
+ 
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+ 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+ 
+      - name: Login to Docker registry
+        run: echo "${{ secrets.PASSWORD }}" | docker login $REG_NAME -u ${{ secrets.USERNAME }} --password-stdin
+ 
+      - name: Build Docker image
+        working-directory: ./todo-app/todo-app/src/backend
+        run: docker build -t $REG_NAME/c213-emf/$IMAGE_NAME:latest .
+ 
+      - name: Push Docker image
+        run: docker push $REG_NAME/c213-emf/$IMAGE_NAME:latest
